@@ -18,6 +18,9 @@ abstract public class SetUpTest {
 
     @BeforeAll
     public static void setUp(){
+//        WebDriverManager.chromedriver().clearDriverCache().setup();
+//        WebDriverManager wdm = WebDriverManager.chromedriver().driverVersion("122");
+//        wdm.setup();
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
 
@@ -25,8 +28,8 @@ abstract public class SetUpTest {
         newChromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
         BasePage.initConfig();
         BasePage.setDriver(driver);
 
