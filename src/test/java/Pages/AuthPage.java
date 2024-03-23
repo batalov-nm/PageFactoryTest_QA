@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class AuthPage extends BasePage {
 
     @FindBy(xpath = "//input[contains(@type, 'email')]")
@@ -21,48 +23,57 @@ public class AuthPage extends BasePage {
     @FindBy(xpath = "//form[contains(@class, 'formPage__form' and contains(@class, 'js-login-form')")
     private WebElement authForm;
 
-    public AuthPage(){
+    public AuthPage() {
         driver.get(config.baseUrl() + "/auth");
 //        driver.get("https://frutonyanya.ru/auth");
         PageFactory.initElements(driver, this);
     }
 
-    public void sendKeysEmail(String email){
+    public AuthPage sendKeysEmail(String email) {
         emailInput.click();
         emailInput.sendKeys(email);
-        System.out.println("Email entered! ("+email+")");
+        System.out.println("Email entered! (" + email + ")");
+        return this;
     }
 
-    public void sendKeysPassword(String pass){
+    public AuthPage sendKeysPassword(String pass) {
         passwordInput.click();
         passwordInput.sendKeys(pass);
-        System.out.println("Password entered! ("+pass+")");
+        System.out.println("Password entered! (" + pass + ")");
+        return this;
     }
 
-    public void inputCorrectEmail(){
-        emailInput.click();
-        emailInput.sendKeys(config.email());
-    }
-
-    public void inputCorrectPassword(){
-        passwordInput.click();
-        passwordInput.sendKeys(config.password());
-    }
-
-    public void clickSubmitButton(){
+    public AuthPage clickSubmitButton() {
         submitButton.click();
+        return this;
     }
 
-    public boolean isBadAuthPopupDisplayed(){
+    public AuthPage isBadAuthPopupDisplayed() {
         BasePage.setExplicitWait(driver, 5, "//div[contains(@class, 'popup_bad')]");
-        return authPopupBad.isDisplayed();
+        assertTrue(authPopupBad.isDisplayed());
+        return this;
     }
 
-    public boolean isBadEmailPopupDisplayed(String validityState){
-        return isBadInputPopupDisplayed(validityState, "input[type=email]");
+    public AuthPage isBadEmailPopupDisplayed(String validityState) {
+        isBadInputPopupDisplayed(validityState, "input[type=email]");
+        return this;
     }
 
-    public boolean isBadPasswordPopupDisplayed(String validityState){
-        return isBadInputPopupDisplayed(validityState, "input[type=password]");
+    public AuthPage isBadPasswordPopupDisplayed(String validityState) {
+        isBadInputPopupDisplayed(validityState, "input[type=password]");
+        return this;
+    }
+
+    public enum validityState {
+        customError,
+        patternMismatch,
+        rangeOverflow,
+        rangeUnderflow,
+        stepMismatch,
+        tooLong,
+        tooShort,
+        typeMismatch,
+        valid,
+        valueMissing;
     }
 }

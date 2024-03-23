@@ -1,13 +1,11 @@
 package Tests;
 
 import Pages.AuthPage;
+import Pages.MainPage;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
-public class AuthTest extends SetUpTest{
+public class AuthTest extends SetUpTest {
 //    static Stream<Arguments> getUserInfo() {
 //        return Stream.of(
 //                Arguments.of("Email_111@email.com", "pass1"),
@@ -19,48 +17,50 @@ public class AuthTest extends SetUpTest{
 //    @ParameterizedTest(name = "Test: {0}")
 //    @MethodSource("getUserInfo")
 
-//    public static
+    public static final String CORRECT_EMAIL = "test@test.te";
+    public static final String CORRECT_PASSWORD = "test_test123";
+    public static final String WRONG_EMAIL = "dasd@dsad.dsa";
+    public static final String WRONG_PASSWORD = "dsadad";
+    public static final String NONE = "";
+
     @Test
-   public void submitAuthWrongNegative() {
+    public void submitAuthWrongNegative() {
 //        User newUser = new RegularUser(userEmail, userPassword);
+        MainPage mainPage = new MainPage();
+        mainPage.clickLoginButton();
+
         AuthPage authPage = new AuthPage();
-
-        authPage.sendKeysEmail("dasd@dsad.dsa");
-        authPage.sendKeysPassword("dsadad");
-
-        authPage.clickSubmitButton();
-        assertTrue(authPage.isBadAuthPopupDisplayed());
+        authPage
+                .sendKeysEmail(WRONG_EMAIL)
+                .sendKeysPassword(WRONG_PASSWORD)
+                .clickSubmitButton()
+                .isBadAuthPopupDisplayed();
     }
 
-//    badInput:
-//    customError:
-//    patternMismatch:
-//    rangeOverflow:
-//    rangeUnderflow:
-//    stepMismatch:
-//    tooLong:
-//    tooShort:
-//    typeMismatch:
-//    valid:
-//    valueMissing:
     @Test
     public void submitAuthEmptyNegative() {
-        AuthPage authPage = new AuthPage();
-        authPage.sendKeysEmail("");
-        authPage.sendKeysPassword("");
+        MainPage mainPage = new MainPage();
+        mainPage.clickLoginButton();
 
-        authPage.clickSubmitButton();
-        assertTrue(authPage.isBadEmailPopupDisplayed("valueMissing"));
-        assertTrue(authPage.isBadPasswordPopupDisplayed("valueMissing"));
+        AuthPage authPage = new AuthPage();
+        authPage
+                .sendKeysEmail(NONE)
+                .sendKeysPassword(NONE)
+                .clickSubmitButton()
+                .isBadEmailPopupDisplayed(AuthPage.validityState.valueMissing.name())
+                .isBadPasswordPopupDisplayed(AuthPage.validityState.valueMissing.name());
     }
 
     @Test
     public void submitAuthPositive() {
-        AuthPage authPage = new AuthPage();
-        authPage.inputCorrectEmail();
-        authPage.inputCorrectPassword();
+        MainPage mainPage = new MainPage();
+        mainPage.clickLoginButton();
 
-        authPage.clickSubmitButton();
-        assertFalse(authPage.isBadAuthPopupDisplayed());
+        AuthPage authPage = new AuthPage();
+        authPage
+                .sendKeysEmail(CORRECT_EMAIL)
+                .sendKeysPassword(CORRECT_PASSWORD)
+                .clickSubmitButton()
+                .isBadAuthPopupDisplayed();
     }
 }
