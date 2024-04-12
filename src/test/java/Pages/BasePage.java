@@ -15,24 +15,24 @@ public abstract class BasePage {
     protected static WebDriver driver;
     protected static ProjectConfig config;
 
-    public static void setDriver(WebDriver webDriver){
+    public static void setDriver(WebDriver webDriver) {
         driver = webDriver;
     }
 
-    public static void initConfig(){
+    public static void initConfig() {
         config = ConfigFactory.create(ProjectConfig.class);
     }
 
-    public static void setExplicitWait(WebDriver webDriver, int waitDuration, String elementXpath){
+    public static void setExplicitWait(WebDriver webDriver, int waitDuration, String elementXpath) {
         WebDriverWait webDriverWait = new WebDriverWait(webDriver, Duration.ofSeconds(waitDuration));
         webDriverWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(elementXpath)));
     }
 
-    public boolean isBadInputPopupDisplayed(String validityState, String querySelector){ // querySelector without ''
+    public void isBadInputPopupDisplayed(String validityState, String querySelector) { // querySelector without ''
 //        String js = "return document.querySelector('input').validity.valueMissing;";
         String js = "return document.querySelector('" + querySelector + "').validity." + validityState + ";";
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-
-        return (boolean) jsExecutor.executeScript(js);
+        jsExecutor.executeScript(js);
     }
+
 }

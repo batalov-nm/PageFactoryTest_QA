@@ -1,9 +1,7 @@
 package Tests;
 
 import Pages.BasePage;
-import config.ProjectConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.PageLoadStrategy;
@@ -17,7 +15,7 @@ abstract public class SetUpTest {
     protected static WebDriver driver;
 
     @BeforeAll
-    public static void setUp(){
+    public static void setUp() {
 //        WebDriverManager.chromedriver().clearDriverCache().setup();
 //        WebDriverManager wdm = WebDriverManager.chromedriver().driverVersion("122");
 //        wdm.setup();
@@ -35,8 +33,9 @@ abstract public class SetUpTest {
 
         //ConfigFactory.create(ProjectConfig.class).baseUrl();
     }
+
     @AfterAll
-    public static void tearDown(){
+    public static void tearDown() {
         driver.close();
         driver.quit();
     }

@@ -8,9 +8,9 @@ public interface ProjectConfig extends Config {
     @Key("base_url")
     String baseUrl();
 
-    @Key("correct_email")
-    String email();
-
-    @Key("correct_password")
-    String password();
+//    @Key("correct_email")
+//    String email();
+//
+//    @Key("correct_password")
+//    String password();
 }
