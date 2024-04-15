@@ -6,17 +6,6 @@ import org.junit.jupiter.api.Test;
 
 
 public class AuthTest extends SetUpTest {
-//    static Stream<Arguments> getUserInfo() {
-//        return Stream.of(
-//                Arguments.of("Email_111@email.com", "pass1"),
-////                Arguments.of(config.email(), config.password()),
-//                Arguments.of("Email_222@email.com", "pass2")
-//        );
-//    }
-
-//    @ParameterizedTest(name = "Test: {0}")
-//    @MethodSource("getUserInfo")
-
     public static final String CORRECT_EMAIL = "test@test.te";
     public static final String CORRECT_PASSWORD = "test_test123";
     public static final String WRONG_EMAIL = "dasd@dsad.dsa";
@@ -25,7 +14,6 @@ public class AuthTest extends SetUpTest {
 
     @Test
     public void submitAuthWrongNegative() {
-//        User newUser = new RegularUser(userEmail, userPassword);
         MainPage mainPage = new MainPage();
         mainPage.clickLoginButton();
 

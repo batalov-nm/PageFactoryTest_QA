@@ -30,8 +30,6 @@ abstract public class SetUpTest {
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(15));
         BasePage.initConfig();
         BasePage.setDriver(driver);
-
-        //ConfigFactory.create(ProjectConfig.class).baseUrl();
     }
 
     @AfterAll
